@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaPlus - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- הוספת ספריית האייקונים FontAwesome כדי שהאייקונים של דיסקורד, טיקטוק וכו' יופיעו -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- קווים מסולסלים ברקע -->
+    <div class="wavy-line-container">
+        <svg class="wavy-line" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+            <path class="line-1" d="M500,0 C500,150 250,150 150,280 C80,350 0,250 0,250" stroke="#00E676" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <path class="line-2" d="M250,1010 C700,850 400,700 200,1000" stroke="#00E676" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <path class="line-3" d="M800,1010 C840,800 930,950 1000,800" stroke="#00E676" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <path class="line-4" d="M700,1010 C740,800 830,950 900,700" stroke="#00E676" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <path class="line-5" d="M1000,0 C740,400 830,650 900,700" stroke="#00E676" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <path class="line-6" d="M600,0 C600,150 350,150 250,280" stroke="#00E676" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <path class="line-7" d="M800,0 C700,100 800,200 600,300" stroke="#00E676" stroke-width="8" fill="none" stroke-linecap="round"/>
+        </svg>
+    </div>
+
+    <!-- Header עליון -->
+    <header class="site-header">
+        <a href="index.html" class="logo-link">
+            <img src="icon.png" alt="Logo" class="logo-icon">
+            <span class="logo-text">NovaPlus</span>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html" class="nav-item">Home</a>
+            <a href="download.html" class="nav-item">Download</a>
+            <a href="about.html" class="nav-item">About</a>
+            <a href="support.html" class="nav-item">Support</a>
+        </nav>
+    </header>
+
+    <!-- תוכן מרכזי -->
+    <main class="content">
+        <h1>Download NovaCleaner</h1>
+        <p>Get started with our software quickly and easily</p>
+        <a href="downloads/NovaPlusSetup.exe" class="download-btn" download>Download</a>
+    </main>
+
+    <div class="bottom-left-widgets">
+        
+        <!-- כפתור ה-Support המתקפל -->
+        <div class="support-dropdown-widget">
+            <div id="support-menu" class="support-menu hidden">
+                <a href="https://discord.gg/Fdg2aeKgpY" target="_blank" class="support-sub-btn" title="Discord">
+                    <i class="fa-brands fa-discord"></i>
+                </a>
+                <a href="https://www.tiktok.com/@autoclinner?_r=1&_t=ZS-98TOoX8X1sN" target="_blank" class="support-sub-btn" title="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+                <a href="https://youtube.com/@novaplus-b2u?si=r1EYBls2F7NgCbF-" target="_blank" class="support-sub-btn" title="YouTube">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+                <a href="https://www.reddit.com/u/NovaPlus2807/s/zfKSzyH4At" target="_blank" class="support-sub-btn" title="Reddit">
+                    <i class="fa-brands fa-reddit-alien"></i>
+                </a>
+            </div>
+            
+            <button id="support-toggle-btn" class="support-main-btn">
+                <span class="support-text-vertical">
+                    <span>S</span>
+                    <span>U</span>
+                    <span>P</span>
+                    <span>P</span>
+                    <span>O</span>
+                    <span>R</span>
+                    <span>T</span>
+                </span>
+                <span class="support-icon-s">S</span>
+            </button>
+        </div>
+
+        <!-- רכיב נגישות צף -->
+        <div class="accessibility-widget">
+            <button id="accessibility-btn" aria-label="Accessibility Menu">
+                <img src="accebility.png" alt="Accessibility" class="custom-accessibility-icon">
+            </button>
+            <div id="accessibility-menu" class="accessibility-menu hidden">
+                <h3>Accessibility Tools</h3>
+                <button onclick="toggleFontSize()">🔠 Toggle Large Font</button>
+                <button onclick="toggleContrast()">🌓 High Contrast</button>
+                <button onclick="resetAccessibility()">🔄 Reset</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+    const supportToggleBtn = document.getElementById('support-toggle-btn');
+    const supportMenu = document.getElementById('support-menu');
+    const supportWidget = document.querySelector('.support-dropdown-widget');
+
+    supportToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        supportMenu.classList.toggle('hidden');
+        supportWidget.classList.toggle('active');
+    });
+
+    // סגירת התפריט בלחיצה מחוץ לכפתור
+    window.addEventListener('click', () => {
+        if (!supportMenu.classList.contains('hidden')) {
+            supportMenu.classList.add('hidden');
+            supportWidget.classList.remove('active');
+        }
+    });
+
+    supportMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+</script>
+
+
+    <script>
+    const accessibilityBtn = document.getElementById('accessibility-btn');
+    const accessibilityMenu = document.getElementById('accessibility-menu');
+
+    accessibilityBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        accessibilityMenu.classList.toggle('hidden');
+    });
+
+    // סגירת התפריט בלחיצה מחוץ לו
+    window.addEventListener('click', () => {
+        if (!accessibilityMenu.classList.contains('hidden')) {
+            accessibilityMenu.classList.add('hidden');
+        }
+    });
+
+    accessibilityMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // פונקציות נגישות גלובליות
+    window.toggleFontSize = function() {
+        document.body.classList.toggle('large-font');
+    };
+
+    window.toggleContrast = function() {
+        document.body.classList.toggle('high-contrast');
+    };
+
+    window.resetAccessibility = function() {
+        document.body.classList.remove('large-font');
+        document.body.classList.remove('high-contrast');
+    };
+</script>
+
+    <!-- Footer תחתון -->
+    <footer class="site-footer">
+        <p>© 2026 NovaPlus. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
