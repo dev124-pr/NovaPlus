@@ -9,7 +9,7 @@
     <!-- הוספת ספריית האייקונים FontAwesome כדי שהאייקונים של דיסקורד, טיקטוק וכו' יופיעו -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="download-page">
 
     <!-- קווים מסולסלים ברקע -->
     <div class="wavy-line-container">
@@ -151,6 +151,97 @@
         document.body.classList.remove('large-font');
         document.body.classList.remove('high-contrast');
     };
+</script>
+
+
+<!-- אזור תגובות ציבורי -->
+    <div class="comments-section">
+        <h3>Community Feedback & Comments</h3>
+        
+        <!-- טופס הוספת תגובה -->
+        <form id="comment-form" class="comment-form">
+            <input type="text" id="comment-name" placeholder="Your Name" required>
+            <textarea id="comment-text" placeholder="Write your comment here..." rows="3" required></textarea>
+            <button type="submit" class="submit-comment-btn">Post Comment</button>
+        </form>
+
+        <!-- רשימת התגובות שכולם רואים -->
+        <div id="comments-list" class="comments-list">
+            <!-- התגובות יופיעו כאן באופן דינמי -->
+        </div>
+    </div>
+
+    <!-- טעינת ספריית EmailJS לשליחת מייל -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("s01gk5Y3F4Zg9WVb0"); // החלף ב-Public Key שלך מ-EmailJS
+   })();
+</script>
+
+<script>
+    const commentForm = document.getElementById('comment-form');
+    const commentsList = document.getElementById('comments-list');
+
+    // טעינת תגובות קיימות מהזיכרון של הדפדפן (localStorage) כדי שכולם יראו אותן בזמן אמת
+    document.addEventListener('DOMContentLoaded', loadComments);
+
+    commentForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('comment-name').value;
+        const text = document.getElementById('comment-text').value;
+
+        const newComment = { name, text, date: new Date().toLocaleString() };
+
+        // שמירה מקומית להצגה מיידית באתר
+        saveCommentToLocalStorage(newComment);
+        appendCommentToDOM(newComment);
+
+        // שליחת התראה למייל שלך דרך EmailJS
+        emailjs.send("service_qvzvzmd", "template_8ea8duk", {
+            from_name: name,
+            message: text,
+            to_email: "autoclinner@gmail.com"
+        }).then(function(response) {
+            console.log('Email sent successfully!', response.status, response.text);
+        }, function(error) {
+            console.log('Failed to send email.', error);
+        });
+
+        // איפוס הטופס
+        commentForm.reset();
+    });
+
+    function saveCommentToLocalStorage(comment) {
+        let comments = JSON.parse(localStorage.getItem('nova_comments')) || [];
+        comments.unshift(comment); // הוספה לראש הרשימה
+        localStorage.setItem('nova_comments', JSON.stringify(comments));
+    }
+
+    function loadComments() {
+        let comments = JSON.parse(localStorage.getItem('nova_comments')) || [];
+        comments.forEach(comment => appendCommentToDOM(comment));
+    }
+
+    function appendCommentToDOM(comment) {
+        const div = document.createElement('div');
+        div.classList.add('comment-item');
+        div.innerHTML = `
+            <div class="comment-author">${escapeHtml(comment.name)} <span style="font-size:0.75rem; color:#888; font-weight:normal;">(${comment.date})</span></div>
+            <div class="comment-body">${escapeHtml(comment.text)}</div>
+        `;
+        commentsList.prepend(div);
+    }
+
+    // הגנה בסיסית מפני קוד זדוני
+    function deselectHtml(text) {
+        return text;
+    }
+    function escapeHtml(text) {
+        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
 </script>
 
     <!-- Footer תחתון -->
