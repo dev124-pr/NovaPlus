@@ -244,6 +244,28 @@
     }
 </script>
 
+
+
+
+<!-- קטע מעקב ההורדות -->
+        <div class="downloads-section" style="text-align: center; margin-top: 20px; color: #fff;">
+            <p>הורדות עד כה: <span id="download-count" style="color: #00E676; font-weight: bold;">טוען...</span></p>
+            <!-- בהמשך תחלץ את localhost הכתובת האמיתית שתקבל מהענן -->
+            <a href="http://localhost:3000/download" class="download-btn">הורד את NovaPlus</a>
+        </div>
+
+        <script>
+            // שליפת מספר ההורדות מהשרת שלך והצגתו באתר
+            fetch('http://localhost:3000/stats')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('download-count').innerText = data.downloads;
+                })
+                .catch(error => {
+                    document.getElementById('download-count').innerText = 'לא זמין';
+                });
+        </script>
+
     <!-- Footer תחתון -->
     <footer class="site-footer">
         <p>© 2026 NovaPlus. All rights reserved.</p>
