@@ -838,3 +838,19 @@ body.download-page .content {
         margin: 30px auto !important;
     }
 }
+
+/* הגדרת הכפתור הייחודי שיהיה במרכז */
+.reddit-full-width {
+    grid-column: 1 / -1; /* פורס אותו לכל רוחב ה-Grid */
+    justify-self: center; /* ממקם אותו במרכז ציר ה-X */
+    width: 100%; /* רוחב מלא כדי להתחשב ב-Grid */
+    max-width: 250px; /* כאן תכניס את הרוחב המדויק של שאר הכפתורים שלך */
+    margin: 0 auto;
+}
+
+/* וודא ששאר הכפתורים מקבלים את אותו רוחב מקסימלי כדי שיהיו אחידים */
+.social-card {
+    width: 100%;
+    max-width: 250px;
+    /* שאר העיצובים שלך... */
+}
